@@ -1,0 +1,68 @@
+class Node:
+
+    def __init__(self, item):
+        self.item = item
+        self.lchild = None
+        self.rchild = None
+
+
+class BinaryTree:
+
+    def __init__(self, node=None):
+        self.root = node
+
+    def add(self, item):
+        
+        if self.root is None:
+            self.root = Node(item)
+        else:
+            queue = list()
+            queue.append(self.root)
+
+            while len(queue) > 0:
+                node = queue.pop(0)
+                if not node.lchild:
+                    node.lchild = Node(item)
+                    return
+                else:
+                    queue.append(node.lchild)
+                if not node.rchild:
+                    node.rchild = Node(item)
+                    return
+                else:
+                    queue.append(node.rchild)
+
+    def breadh_travel(self):
+        
+        if self.root is None:
+            return
+        queue = list()
+        queue.append(self.root)
+        while len(queue) > 0:
+            node = queue.pop(0)
+            print(node.item, end=" ")
+            if node.lchild:
+                queue.append(node.lchild)
+            if node.rchild:
+                queue.append(node.rchild)
+
+    def preorder_travel(self, root):
+        
+        if root:
+            print(root.item, end=" ")
+            self.preorder_travel(root.lchild)
+            self.preorder_travel(root.rchild)
+
+    def inorder_travel(self, root):
+        
+        if root:
+            self.inorder_travel(root.lchild)
+            print(root.item, end=" ")
+            self.inorder_travel(root.rchild)
+
+    def postorder_travel(self, root):
+        
+        if root:
+            self.postorder_travel(root.lchild)
+            self.postorder_travel(root.rchild)
+            print(root.item, end=" ")
